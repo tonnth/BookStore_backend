@@ -16,7 +16,7 @@ app.use('/khachhang',routeKhachHang);
 app.use('/hoadon',routeHoaDon);
 app.use(express.static('img'));
 
-var server = app.listen(3000, function() {
+var server = app.listen(3000 || process.env.PORT, function() {
   console.log('Server listening on port ' + server.address().port);
 });
 
