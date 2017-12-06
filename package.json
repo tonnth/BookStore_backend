@@ -18,8 +18,8 @@
     "crypto": "^1.0.1",
     "express": "^4.15.3",
     "jsonwebtoken": "^8.1.0",
-    "mysql": "^2.14.0",
-    "BookStore_backend":"tonnth/BookStore_backend"
+    "mysql": "^2.14.0"
+    
   },
   "devDependencies": {
     "eslint-config-rallycoding": "^3.2.0"
