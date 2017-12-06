@@ -31,7 +31,15 @@ router.get('/theloai/:MaTheLoai?',function(req,res,next){
     });
 });
 
-router
+router.get('/timkiem/:key?',function(req,res,next){
+    Sach.timSach(req.params.key,function(err,rows){
+        if(err){
+            res.json(err);
+        } else {
+            res.json(rows);
+        }
+    });
+});
 
 router.get('/:id?',function(req,res,next){
     if(req.params.id){
