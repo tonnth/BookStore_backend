@@ -16,7 +16,7 @@ router.post('/token?',function(req,res,next)
 router.post('/dangky',function(req,res,next)
 {
     var md5 = crypto.createHash('md5').update(req.body.MatKhau).digest("hex");
-    var qr = "INSERT INTO KhachHang (HoTenKhachHang,Email,MatKhau,TienNo,LoaiKhachHang,SoXuTichLuy) Values (?,?,?,0,0,0)";
+    var qr = "INSERT INTO khachhang (HoTenKhachHang,Email,MatKhau,TienNo,LoaiKhachHang,SoXuTichLuy) Values (?,?,?,0,0,0)";
     
     var token = jwt.sign(req.body, 'tohiti');
     db.query(qr,[req.body.HoTenKhachHang,req.body.Email,md5], function (error, results, fields) {
@@ -39,7 +39,7 @@ router.post('/dangky',function(req,res,next)
 function Login(email,mk, res)
 {
     var md5 = crypto.createHash('md5').update(mk).digest("hex");
-    db.query('SELECT * FROM KhachHang WHERE Email = ?',[email], function (error, results, fields) {
+    db.query('SELECT * FROM khachhang WHERE Email = ?',[email], function (error, results, fields) {
     if (error) {
       // console.log("error ocurred",error);
       res.send({
