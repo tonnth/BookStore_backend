@@ -11,10 +11,10 @@ var mysql=require('mysql');
 
 var connection = mysql.createConnection({
     
-  host:'sql12.freemysqlhosting.net',
-  user: 'sql12209460',
-  password:'Sl9HcJQxnV',
-  database:'sql12209460',
+  host:'us-cdbr-iron-east-05.cleardb.net',
+  user: 'ba07e414f4d8e4',
+  password:'b51bed0c',
+  database:'heroku_1873b262d36b3f6',
   port: '3306'
    
   })
