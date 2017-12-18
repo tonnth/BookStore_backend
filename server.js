@@ -6,7 +6,7 @@ var routeSach = require('./Routes/routeSach');
 var routeKhachHang = require('./Routes/routeKhachHang');
 var routeHoaDon = require('./Routes/routeHoaDon');
 
-
+var routeTheLoai = require('./Routes/routeTheLoai');
 var app = express();
 app.use(bodyparser.urlencoded({extended: true})); //support x-www-form-urlencoded
 app.use(bodyparser.json());
@@ -14,6 +14,7 @@ app.use(bodyparser.json());
 app.use('/sach',routeSach);
 app.use('/khachhang',routeKhachHang);
 app.use('/hoadon',routeHoaDon);
+app.use('/theloai',routeTheLoai);
 app.use(express.static('img'));
 
 var server = app.listen(process.env.PORT || 3000, function() {
