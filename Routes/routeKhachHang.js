@@ -36,7 +36,7 @@ router.post('/dangky',function(req,res,next)
         }
         });
 });
-function Login(email,mk, res)
+function Login(email,mk,res)
 {
     var md5 = crypto.createHash('md5').update(mk).digest("hex");
     db.query('SELECT * FROM khachhang WHERE Email = ?',[email], function (error, results, fields) {
@@ -60,14 +60,14 @@ function Login(email,mk, res)
         else{
           res.send({
             "code":204,
-            "success":"Email and password does not match"
+            "fail":"Email and password does not match"
               });
         }
       }
       else{
         res.send({
           "code":204,
-          "success":"Email does not exits"
+          "fail":"Email does not exits"
             });
       }
     }
