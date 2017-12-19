@@ -16,10 +16,10 @@ router.post('/token?',function(req,res,next)
 router.post('/dangky',function(req,res,next)
 {
     var md5 = crypto.createHash('md5').update(req.body.MatKhau).digest("hex");
-    var qr = "INSERT INTO khachhang (HoTenKhachHang,Email,MatKhau,TienNo,LoaiKhachHang,SoXuTichLuy) Values (?,?,?,0,0,0)";
+    var query = "INSERT INTO khachhang (HoTenKhachHang,Email,MatKhau,TienNo,LoaiKhachHang,SoXuTichLuy) Values (?,?,?,0,0,0)";
     
     var token = jwt.sign(req.body, 'tohiti');
-    db.query(qr,[req.body.HoTenKhachHang,req.body.Email,md5], function (error, results, fields) {
+    db.query(query,[req.body.HoTenKhachHang,req.body.Email,md5], function (error, results, fields) {
         if (error) {
         //   console.log("error ocurred",error);
           res.send({
@@ -51,23 +51,33 @@ function Login(email,mk,res)
       if(results.length >0){
           console.log("md5:    "+ md5);
           console.log(results[0].MatKhau);
-        if(results[0].MatKhau == md5){
+        if(results[0].MatKhau == md5)
+        {
+            var user = {
+                HoTenKhachHang: results[0].HoTenKhachHang,
+                Email: results[0].Email,
+                MatKhau: mk,
+            }
+            var token = jwt.sign(user, 'tohiti');
+
           res.send({
             "code":200,
-            "success":"login sucessfull"
+            "message":"Login sucessfull",
+              "token": token,
               });
         }
-        else{
+        else
+            {
           res.send({
             "code":204,
-            "fail":"Email and password does not match"
+            "message":"Email and password does not match"
               });
         }
       }
       else{
         res.send({
           "code":204,
-          "fail":"Email does not exits"
+          "message":"Email does not exists"
             });
       }
     }
