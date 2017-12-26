@@ -4,14 +4,14 @@ var KhachHang = require('../Models/KhachHang');
 var crypto = require('crypto');
 var db = require('../Dbconnection');
 var jwt = require('jsonwebtoken');
-
-router.post('/token?',function(req,res,next)
-{
-    var token = req.body.token;
-    var decoded = jwt.verify(token, 'tohiti');
-    console.log(decoded);
-    Login(decoded.Email, decoded.MatKhau, res);
-});
+//
+// router.post('/token?',function(req,res,next)
+// {
+//     var token = req.body.token;
+//     var decoded = jwt.verify(token, 'tohiti');
+//     console.log(decoded);
+//     Login(decoded.Email, decoded.MatKhau, res);
+// });
 
 router.post('/dangky',function(req,res,next)
 {
@@ -49,11 +49,10 @@ function Login(email,mk,res)
     }else{
       // console.log('The solution is: ', results);
       if(results.length >0){
-          console.log("md5:    "+ md5);
-          console.log(results[0].MatKhau);
         if(results[0].MatKhau == md5)
         {
             var user = {
+                MaKhachHang:results[0].MaKhachHang,
                 HoTenKhachHang: results[0].HoTenKhachHang,
                 Email: results[0].Email,
                 MatKhau: mk,
@@ -90,10 +89,10 @@ router.post('/dangnhap?',function(req,res,next)
 
 router.post('/token?',function(req,res,next)
 {
-    var token = req.body.token;
-    var decoded = jwt.verify(token, 'tohiti');
-    console.log(decoded);
-    Login(decoded.Email, decoded.MatKhau, res);
+     var token = req.headers.authorization;
+     var decoded = jwt.verify(token, 'tohiti');
+     console.log(decoded);
+
 });
 
 
