@@ -87,11 +87,13 @@ router.post('/dangnhap?',function(req,res,next)
     Login(req.body.Email, req.body.MatKhau, res);
 });
 
-router.post('/token?',function(req,res,next)
+router.get('/thongtin?',function(req,res,next)
 {
+    console.log('/token');
      var token = req.headers.authorization;
      var decoded = jwt.verify(token, 'tohiti');
      console.log(decoded);
+     res.send(decoded);
 
 });
 
