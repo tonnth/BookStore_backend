@@ -10,6 +10,10 @@ var KhachHang={
 	getHoaDonByMaKhachHang:function(MaKhachHang,callback){
 		return db.query("select * from hoadon where MaKhachHang=?",[MaKhachHang],callback);
 	},
+    getDanhSachYeuThich:function(id,callback){
+		var query="Select Sach.MaSach, TenSach, TacGia, HinhAnh, MoTa, GiaBan from sach inner join brkhachhang on brkhachhang.MaSach = sach.MaSach where MaKhachHang=? and YeuThich <> 0 and TrangThai <> -1"
+        return db.query(query,[id],callback);
+    },
 
 };
  module.exports=KhachHang;

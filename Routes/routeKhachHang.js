@@ -4,6 +4,7 @@ var KhachHang = require('../Models/KhachHang');
 var crypto = require('crypto');
 var db = require('../Dbconnection');
 var jwt = require('jsonwebtoken');
+
 //
 // router.post('/token?',function(req,res,next)
 // {
@@ -97,10 +98,90 @@ router.get('/thongtin?',function(req,res,next)
 
 });
 
+router.get('/yeuthich?',function(req,res,next)
+{
+    console.log('/token');
+    var token = req.headers.authorization;
+    var decoded = jwt.verify(token, 'tohiti');
+    console.log(decoded);
+    KhachHang.getDanhSachYeuThich(decoded.MaKhachHang,function(err, rows)
+    {
+        if(err)
+        {
+            res.json(err);
+        } else {
+            res.json(rows);
+        }
+    })
+
+});
+function getDanhSachSanPham(MaHoaDon)
+{
+    var sql = "select * from chitiethoadon INNER join sach  on chitiethoadon.MaSach=sach.MaSach where MaHoaDon=?";
+    return new Promise(function(resolve,reject){
+        db.query(sql, [MaHoaDon], function(err, result){
+            if(err){
+                reject(err)
+            }else{
+                resolve(result)
+            }
+        })
+    })
+
+
+
+}
+router.get('/lichsumuahang?', function (req,res,next)
+{
+    var token = req.headers.authorization;
+    var decoded = jwt.verify(token, 'tohiti');
+    console.log(decoded);
+    var dsDonHang = [];
+    var donhang;
+    db.query("select * from hoadon INNER join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?",[decoded.MaKhachHang], async function (errorHoaDon,resultHoaDon)
+    {
+        if(errorHoaDon)
+        {
+            console.log('Error' + errorHoaDon)
+            res.json(errorHoaDon);
+        }
+        else
+        {
+
+
+            for(i=0; i < resultHoaDon.length; i++)
+            {
+                 var dsSanPham = [];
+                 dsSanPham = await getDanhSachSanPham(resultHoaDon[i].MaHoaDon);
+                //console.log('Trang thai hien tai la:', trangthai)
+                donhang = {
+                    MaHoaDon: resultHoaDon[i].MaHoaDon,
+                    NgayLapHoaDon: resultHoaDon[i].NgayLapHoaDon,
+                    TongTienHoaDon: resultHoaDon[i].TongTienHoaDon,
+                    DiaChiGiaoHang: resultHoaDon[i].DiaChiGiaoHang,
+                    TenNguoiNhan: resultHoaDon[i].TenNguoiNhan,
+                    SoDienThoai: resultHoaDon[i].SoDienThoai,
+                    SoXuSuDung: resultHoaDon[i].SoXuSuDung,
+                    PhiGiaoHang: resultHoaDon[i].PhiGiaoHang,
+                    TrangThai:  resultHoaDon[i].TrangThai,
+                    dsSanPham: dsSanPham,
+                }
+                dsDonHang.push(donhang);
+            }
+            res.send(dsDonHang);
+        }
+
+    })
+
+});
+
+
+
 
 router.get('/hd/:MaKhachHang?',function(req,res,next){
     KhachHang.getHoaDonByMaKhachHang(req.params.MaKhachHang,function(err,rows){
-        if(err){
+        if(err)
+        {
             res.json(err);
         } else {
             res.json(rows);
