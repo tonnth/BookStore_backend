@@ -157,6 +157,7 @@ router.get('/lichsumuahang?', function (req,res,next)
                 donhang = {
                     MaHoaDon: resultHoaDon[i].MaHoaDon,
                     NgayLapHoaDon: resultHoaDon[i].NgayLapHoaDon,
+                    NgayThuTien:resultHoaDon[i].NgayThuTien,
                     TongTienHoaDon: resultHoaDon[i].TongTienHoaDon,
                     DiaChiGiaoHang: resultHoaDon[i].DiaChiGiaoHang,
                     TenNguoiNhan: resultHoaDon[i].TenNguoiNhan,
