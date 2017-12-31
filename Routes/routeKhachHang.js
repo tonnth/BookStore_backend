@@ -48,7 +48,7 @@ router.post('/dangky', function (req, res, next)
                         //   console.log("error ocurred",error);
                         res.send({
                             "code":400,
-                            "message":"error ocurred"
+                            "message":"Lỗi đăng ký. Vui lòng thử lại."
                         })
                     }else{
                         //   console.log('The solution is: ', results);
