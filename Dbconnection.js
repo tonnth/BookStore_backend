@@ -6,7 +6,7 @@ var mysql = require('mysql');
 //  password:'1234',
 //  database:'websitebansach'
 
-     //#Host Heroku
+     // //#Host Heroku
      host:'us-cdbr-iron-east-05.cleardb.net',
      user: 'ba07e414f4d8e4',
      password:'b51bed0c',

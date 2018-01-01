@@ -43,7 +43,7 @@ router.post('/dangky', function (req, res, next)
             }
             else
             {
-                var token = jwt.sign(req.body, 'tohiti');
+
                 db.query(query,[req.body.HoTenKhachHang,req.body.Email,md5], function (error, results, fields) {
                     if (error) {
                         //   console.log("error ocurred",error);
@@ -56,7 +56,7 @@ router.post('/dangky', function (req, res, next)
                         res.send({
                             "code":200,
                             "message":"Đăng ký thành công",
-                            "token": token,
+
                         });
                     }
                 });
@@ -88,8 +88,8 @@ function Login(email, mk, res)
                         MaKhachHang: results[0].MaKhachHang,
                         HoTenKhachHang: results[0].HoTenKhachHang,
                         Email: results[0].Email,
-                        MatKhau: mk,
-                        SoXuSuDung: results[0].SoXuSuDung,
+                        MatKhau: md5,
+                        SoXuTichLuy: results[0].SoXuTichLuy,
                     }
                     var token = jwt.sign(user, 'tohiti');
 
@@ -128,8 +128,15 @@ router.get('/thongtin?', function (req, res, next)
     console.log('/token');
     var token = req.headers.authorization;
     var decoded = jwt.verify(token, 'tohiti');
-    console.log(decoded);
-    res.send(decoded);
+    db.query("select MaKhachHang,HoTenKhachHang,Email,SoXuTichLuy from khachhang where MaKhachHang=?",[decoded.MaKhachHang],function (err,result)
+    {
+        if(err) res.json(err);
+        else
+        {
+            res.json(result[0]);
+        }
+    })
+
 
 });
 
