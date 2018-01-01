@@ -21,6 +21,4 @@ var mysql = require('mysql');
      // port: '3306'
 
 });
-
- 
 module.exports=connection;

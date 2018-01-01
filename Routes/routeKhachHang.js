@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var KhachHang = require('../Models/KhachHang');
+var Sach=require(('../Models/KhachHang'))
 var crypto = require('crypto');
 var db = require('../Dbconnection');
 var jwt = require('jsonwebtoken');
@@ -88,6 +89,7 @@ function Login(email, mk, res)
                         HoTenKhachHang: results[0].HoTenKhachHang,
                         Email: results[0].Email,
                         MatKhau: mk,
+                        SoXuSuDung: results[0].SoXuSuDung,
                     }
                     var token = jwt.sign(user, 'tohiti');
 
@@ -166,8 +168,6 @@ function getDanhSachSanPham(MaHoaDon)
             }
         })
     })
-
-
 }
 
 router.get('/lichsumuahang?', function (req, res, next)
@@ -262,4 +262,187 @@ router.get('/:id?', function (req, res, next)
     }
 });
 
+
+router.post('/dathang?', function (req, res, next)
+{
+    var noidung ='';
+    var token = req.headers.authorization;
+    var GioHang =req.body.GioHang;
+    var decoded = jwt.verify(token, 'tohiti');
+    var TongTien = 0;
+    for(i =0; i < GioHang.length; i++)
+    {
+        TongTien+=GioHang[i].SoLuong * GioHang[i].GiaBan;
+    }
+
+    var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang) " +
+        "Values (?,?,?,?,?,?,?,?,?)";
+    var currentdate = new Date();
+    db.query(query,[currentdate,decoded.MaKhachHang,req.body.MaKhuVucGiaoHang,req.body.DiaChiGiaoHang,req.body.TenNguoiNhan,req.body.SoDienThoai,req.body.SoXuSuDung,TongTien,0],async function (error,result)
+    {
+        if(error)
+        {
+            console.log(error);
+            res.json(error);
+        }
+        else
+        {
+            for(i=0;i<GioHang.length;i++)
+            {
+                //Update noidung
+                var TenSach = await getTenSach(GioHang[i].MaSach);
+                TenSach=TenSach[0].TenSach;
+                noidung += GioHang[i].SoLuong + ' cuốn '+ TenSach+', ';
+
+                //Update số lượng tồn của đầu sách
+                console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
+                var soLuongTon = await getSoLuongTon(GioHang[i].MaSach);
+                soLuongTon=soLuongTon[0].SoLuongTon;
+                console.log('So luong ton cu MS '+GioHang[i].MaSach+' : ',soLuongTon);
+                soLuongTon =soLuongTon - GioHang[i].SoLuong;
+
+                console.log('so luong ton moi MS' +GioHang[i].MaSach+' : ', soLuongTon);
+
+                var sql = "update sach set SoLuongTon=? where MaSach=?";
+                await db.query(sql, [soLuongTon,GioHang[i].MaSach], function (err2, result2)
+                {
+                    // if(err2) res.json(err2);
+                    if(err2)
+                    {
+                        console.log('Lỗi update số lượng tồn: ',err2);
+                    }
+
+                })
+
+                //Tạo các chi tiết hóa đơn
+                console.log('TẠO CHI TIẾT HÓA ĐƠN')
+                await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)',[result.insertId,GioHang[i].MaSach,GioHang[i].SoLuong,GioHang[i].GiaBan], function (err3, result3)
+                {
+                    // if(err3) res.json(err3);
+                    if(err3)
+                    {
+                        console.log('Lỗi tạo chi tiết hóa đơn: ', err3);
+                    }
+
+                });
+
+                //Cập nhật BR
+                console.log('CẬP NHẬT BR KHÁCH HÀNG')
+                var brkhachhang = await getBRKhachHang(decoded.MaKhachHang,GioHang[i].MaSach);
+                if(brkhachhang.length===0)
+                {
+                    console.log('Tạo mới brkhachhang');
+                    await db.query('insert into brkhachhang (MaKhachHang,MaSach,SoLuongMua) values (?,?,?)', [decoded.MaKhachHang,GioHang[i].MaSach, GioHang[i].SoLuong], function (err4,result4)
+                    {
+                        // if(err4) res.json(err4);
+                        if(err4)
+                        {
+                            console.log('Lỗi tạo mới brkhachhang: ',err4);
+                        }
+
+                    })
+                }
+                else
+                {
+                    console.log('Update brkhachhang');
+                    var soLuongMua=brkhachhang[0].SoLuongMua;
+                    console.log('So luong mua cu : ', soLuongMua);
+                    soLuongMua=soLuongMua + GioHang[i].SoLuong;
+                    console.log('So luong mua moi : ', soLuongMua);
+                    var query ='update brkhachhang set SoLuongMua='+ soLuongMua +' where MaKhachHang='+ decoded.MaKhachHang+ ' and MaSach='+GioHang[i].MaSach;
+                    console.log(query);
+                    // await db.query('update brkhachhang set SoLuongMua=? where MaKhachHang=? and MaSach=?',[soLuongMua,decoded.MaKHachHang,GioHang[i].MaSach], function (err5,result5)
+                    // {
+                    //     // if(err5) res.json(err5);
+                    //     if(err5)
+                    //     {
+                    //         console.log('Lỗi cập nhật brkhachhang: ',err5);
+                    //     }
+                    //     console.log(result5);
+                    // })
+
+                    await db.query(query, function (err5,result5)
+                    {
+                        // if(err5) res.json(err5);
+                        if(err5)
+                        {
+                            console.log('Lỗi cập nhật brkhachhang: ',err5);
+                        }
+
+                    })
+                }
+
+            }
+
+            console.log('Tạo phiếu thu tiền');
+            await db.query('insert into phieuthutien (MaKhachHang,SoTienThu,NoiDung,TrangThai,MaHoaDon) values(?,?,?,?,?)',[decoded.MaKhachHang,TongTien,noidung,'Chưa thanh toán(Không cho nợ)',result.insertId], function (err6,result6)
+            {
+                // if(err6) res.json(err6);
+                if(err6)
+                {
+                    console.log('Lỗi tạo phiếu thu tiền: ',err6);
+                }
+
+            })
+
+
+
+        }
+        res.send({'code':' đặt hàng thành công'});
+
+    });
+
+    function getSoLuongTon(MaSach)
+    {
+        var sql = "select SoLuongTon from sach where MaSach=?";
+        return new Promise(function (resolve, reject)
+        {
+            db.query(sql, [MaSach], function (err, result)
+            {
+                if (err)
+                {
+                    reject(err)
+                } else
+                {
+                    resolve(result)
+                }
+            })
+        })
+    }
+    function getBRKhachHang(MaKhachHang,MaSach)
+    {
+        var sql = "select * from brkhachhang where MaKhachHang=? and MaSach=?";
+        return new Promise(function (resolve, reject)
+        {
+            db.query(sql, [MaKhachHang,MaSach], function (err, result)
+            {
+                if (err)
+                {
+                    reject(err)
+                } else
+                {
+                    resolve(result)
+                }
+            })
+        })
+    }
+
+    function getTenSach(MaSach)
+    {
+        var sql = "select TenSach from sach where MaSach=?";
+        return new Promise(function (resolve, reject)
+        {
+            db.query(sql, [MaSach], function (err, result)
+            {
+                if (err)
+                {
+                    reject(err)
+                } else
+                {
+                    resolve(result)
+                }
+            })
+        })
+    }
+});
 module.exports = router;
