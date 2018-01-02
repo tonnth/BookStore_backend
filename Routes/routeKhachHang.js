@@ -273,7 +273,7 @@ router.get('/:id?', function (req, res, next)
 router.post('/dathang?', async function (req, res, next)
 {
     var noidung ='';
-    var token = req.body.token;
+    var token = req.headers.authorization;
     var GioHang =req.body.GioHang;
     var decoded = jwt.verify(token, 'tohiti');
     var TongTien = req.body.TongTienHoaDon;

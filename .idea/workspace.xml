@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e3f1fb5-add3-4dfd-8402-86db8aaff0bd" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Routes/routeKhachHang.js" afterPath="$PROJECT_DIR$/Routes/routeKhachHang.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="Dbconnection.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dbconnection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="171">
+              <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="13" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -43,8 +42,8 @@
       <file leaf-file-name="routeKhachHang.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="275" column="31" lean-forward="false" selection-start-line="275" selection-start-column="31" selection-end-line="275" selection-end-column="31" />
+            <state relative-caret-position="182">
+              <caret line="275" column="41" lean-forward="false" selection-start-line="275" selection-start-column="16" selection-end-line="275" selection-end-column="41" />
               <folding>
                 <element signature="e#942#1022#0" expanded="false" />
                 <element signature="n#!!block;n#Login#0" expanded="false" />
@@ -240,12 +239,12 @@
       <workItem from="1514769435336" duration="12674000" />
       <workItem from="1514822497845" duration="1000" />
       <workItem from="1514858330533" duration="2046000" />
-      <workItem from="1514874401065" duration="5822000" />
+      <workItem from="1514874401065" duration="6487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72711000" />
+    <option name="totallyTimeSpent" value="73376000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="999" extended-state="0" />
@@ -704,14 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Routes/routeSach.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Models/KhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -720,18 +711,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dbconnection.js">
+    <entry file="file://$PROJECT_DIR$/Routes/routeSach.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dbconnection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="3" lean-forward="false" selection-start-line="9" selection-start-column="3" selection-end-line="13" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="275" column="31" lean-forward="false" selection-start-line="275" selection-start-column="31" selection-end-line="275" selection-end-column="31" />
+        <state relative-caret-position="182">
+          <caret line="275" column="41" lean-forward="false" selection-start-line="275" selection-start-column="16" selection-end-line="275" selection-end-column="41" />
           <folding>
             <element signature="e#942#1022#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
