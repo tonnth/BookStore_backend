@@ -276,11 +276,11 @@ router.post('/dathang?', function (req, res, next)
     var token = req.headers.authorization;
     var GioHang =req.body.GioHang;
     var decoded = jwt.verify(token, 'tohiti');
-    var TongTien = 0;
-    for(i =0; i < GioHang.length; i++)
-    {
-        TongTien+=GioHang[i].SoLuong * GioHang[i].GiaBan;
-    }
+    var TongTien = req.body.TongTienHoaDon;
+    // for(i =0; i < GioHang.length; i++)
+    // {
+    //     TongTien+=GioHang[i].SoLuongBan * GioHang[i].GiaBan;
+    // }
 
     var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang) " +
         "Values (?,?,?,?,?,?,?,?,?)";
@@ -299,14 +299,14 @@ router.post('/dathang?', function (req, res, next)
                 //Update noidung
                 var TenSach = await getTenSach(GioHang[i].MaSach);
                 TenSach=TenSach[0].TenSach;
-                noidung += GioHang[i].SoLuong + ' cuốn '+ TenSach+', ';
+                noidung += GioHang[i].SoLuongBan + ' cuốn '+ TenSach+', ';
 
                 //Update số lượng tồn của đầu sách
                 console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
                 var soLuongTon = await getSoLuongTon(GioHang[i].MaSach);
                 soLuongTon=soLuongTon[0].SoLuongTon;
                 console.log('So luong ton cu MS '+GioHang[i].MaSach+' : ',soLuongTon);
-                soLuongTon =soLuongTon - GioHang[i].SoLuong;
+                soLuongTon =soLuongTon - GioHang[i].SoLuongBan;
 
                 console.log('so luong ton moi MS' +GioHang[i].MaSach+' : ', soLuongTon);
 
@@ -323,7 +323,7 @@ router.post('/dathang?', function (req, res, next)
 
                 //Tạo các chi tiết hóa đơn
                 console.log('TẠO CHI TIẾT HÓA ĐƠN')
-                await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)',[result.insertId,GioHang[i].MaSach,GioHang[i].SoLuong,GioHang[i].GiaBan], function (err3, result3)
+                await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)',[result.insertId,GioHang[i].MaSach,GioHang[i].SoLuongBan,GioHang[i].GiaBan], function (err3, result3)
                 {
                     // if(err3) res.json(err3);
                     if(err3)
@@ -339,7 +339,7 @@ router.post('/dathang?', function (req, res, next)
                 if(brkhachhang.length===0)
                 {
                     console.log('Tạo mới brkhachhang');
-                    await db.query('insert into brkhachhang (MaKhachHang,MaSach,SoLuongMua) values (?,?,?)', [decoded.MaKhachHang,GioHang[i].MaSach, GioHang[i].SoLuong], function (err4,result4)
+                    await db.query('insert into brkhachhang (MaKhachHang,MaSach,SoLuongMua) values (?,?,?)', [decoded.MaKhachHang,GioHang[i].MaSach, GioHang[i].SoLuongBan], function (err4,result4)
                     {
                         // if(err4) res.json(err4);
                         if(err4)
@@ -354,7 +354,7 @@ router.post('/dathang?', function (req, res, next)
                     console.log('Update brkhachhang');
                     var soLuongMua=brkhachhang[0].SoLuongMua;
                     console.log('So luong mua cu : ', soLuongMua);
-                    soLuongMua=soLuongMua + GioHang[i].SoLuong;
+                    soLuongMua=soLuongMua + GioHang[i].SoLuongBan;
                     console.log('So luong mua moi : ', soLuongMua);
                     var query ='update brkhachhang set SoLuongMua='+ soLuongMua +' where MaKhachHang='+ decoded.MaKhachHang+ ' and MaSach='+GioHang[i].MaSach;
                     console.log(query);
