@@ -270,17 +270,34 @@ router.get('/:id?', function (req, res, next)
 });
 
 
-router.post('/dathang?', function (req, res, next)
+router.post('/dathang?', async function (req, res, next)
 {
     var noidung ='';
     var token = req.headers.authorization;
     var GioHang =req.body.GioHang;
     var decoded = jwt.verify(token, 'tohiti');
     var TongTien = req.body.TongTienHoaDon;
-    // for(i =0; i < GioHang.length; i++)
-    // {
-    //     TongTien+=GioHang[i].SoLuongBan * GioHang[i].GiaBan;
-    // }
+
+
+
+    var SoXuTichLuy = await getSoXuTichLuy(decoded.MaKhachHang);
+    console.log('So xu tich luy ban dau:',SoXuTichLuy)
+    console.log('So xu su dung:', req.body.SoXuSuDung)
+    SoXuTichLuy -= req.body.SoXuSuDung;
+    console.log('So xu tich luy sau: ',SoXuTichLuy);
+
+
+    var sql = "update khachhang set SoXuTichLuy=? where MaKhachHang=?";
+    await db.query(sql,[SoXuTichLuy,decoded.MaKhachHang],function (err0, result0)
+    {
+        // if(err2) res.json(err2);
+        if(err0)
+        {
+            console.log('Lỗi update số xu: ',err0);
+        }
+
+    })
+
 
     var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang) " +
         "Values (?,?,?,?,?,?,?,?,?)";
@@ -302,13 +319,11 @@ router.post('/dathang?', function (req, res, next)
                 noidung += GioHang[i].SoLuongBan + ' cuốn '+ TenSach+', ';
 
                 //Update số lượng tồn của đầu sách
-                console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
+                // console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
                 var soLuongTon = await getSoLuongTon(GioHang[i].MaSach);
                 soLuongTon=soLuongTon[0].SoLuongTon;
-                console.log('So luong ton cu MS '+GioHang[i].MaSach+' : ',soLuongTon);
                 soLuongTon =soLuongTon - GioHang[i].SoLuongBan;
 
-                console.log('so luong ton moi MS' +GioHang[i].MaSach+' : ', soLuongTon);
 
                 var sql = "update sach set SoLuongTon=? where MaSach=?";
                 await db.query(sql, [soLuongTon,GioHang[i].MaSach], function (err2, result2)
@@ -322,7 +337,7 @@ router.post('/dathang?', function (req, res, next)
                 })
 
                 //Tạo các chi tiết hóa đơn
-                console.log('TẠO CHI TIẾT HÓA ĐƠN')
+                // console.log('TẠO CHI TIẾT HÓA ĐƠN')
                 await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)',[result.insertId,GioHang[i].MaSach,GioHang[i].SoLuongBan,GioHang[i].GiaBan], function (err3, result3)
                 {
                     // if(err3) res.json(err3);
@@ -334,7 +349,7 @@ router.post('/dathang?', function (req, res, next)
                 });
 
                 //Cập nhật BR
-                console.log('CẬP NHẬT BR KHÁCH HÀNG')
+                // console.log('CẬP NHẬT BR KHÁCH HÀNG')
                 var brkhachhang = await getBRKhachHang(decoded.MaKhachHang,GioHang[i].MaSach);
                 if(brkhachhang.length===0)
                 {
@@ -353,9 +368,7 @@ router.post('/dathang?', function (req, res, next)
                 {
                     console.log('Update brkhachhang');
                     var soLuongMua=brkhachhang[0].SoLuongMua;
-                    console.log('So luong mua cu : ', soLuongMua);
                     soLuongMua=soLuongMua + GioHang[i].SoLuongBan;
-                    console.log('So luong mua moi : ', soLuongMua);
                     var query ='update brkhachhang set SoLuongMua='+ soLuongMua +' where MaKhachHang='+ decoded.MaKhachHang+ ' and MaSach='+GioHang[i].MaSach;
                     console.log(query);
                     // await db.query('update brkhachhang set SoLuongMua=? where MaKhachHang=? and MaSach=?',[soLuongMua,decoded.MaKHachHang,GioHang[i].MaSach], function (err5,result5)
@@ -381,7 +394,7 @@ router.post('/dathang?', function (req, res, next)
 
             }
 
-            console.log('Tạo phiếu thu tiền');
+            // console.log('Tạo phiếu thu tiền');
             await db.query('insert into phieuthutien (MaKhachHang,SoTienThu,NoiDung,TrangThai,MaHoaDon) values(?,?,?,?,?)',[decoded.MaKhachHang,TongTien,noidung,'Chưa thanh toán(Không cho nợ)',result.insertId], function (err6,result6)
             {
                 // if(err6) res.json(err6);
@@ -398,58 +411,76 @@ router.post('/dathang?', function (req, res, next)
         res.send({'code':' đặt hàng thành công'});
 
     });
-
-    function getSoLuongTon(MaSach)
-    {
-        var sql = "select SoLuongTon from sach where MaSach=?";
-        return new Promise(function (resolve, reject)
-        {
-            db.query(sql, [MaSach], function (err, result)
-            {
-                if (err)
-                {
-                    reject(err)
-                } else
-                {
-                    resolve(result)
-                }
-            })
-        })
-    }
-    function getBRKhachHang(MaKhachHang,MaSach)
-    {
-        var sql = "select * from brkhachhang where MaKhachHang=? and MaSach=?";
-        return new Promise(function (resolve, reject)
-        {
-            db.query(sql, [MaKhachHang,MaSach], function (err, result)
-            {
-                if (err)
-                {
-                    reject(err)
-                } else
-                {
-                    resolve(result)
-                }
-            })
-        })
-    }
-
-    function getTenSach(MaSach)
-    {
-        var sql = "select TenSach from sach where MaSach=?";
-        return new Promise(function (resolve, reject)
-        {
-            db.query(sql, [MaSach], function (err, result)
-            {
-                if (err)
-                {
-                    reject(err)
-                } else
-                {
-                    resolve(result)
-                }
-            })
-        })
-    }
+    // res.send({'code':' đặt hàng thành công'});
 });
+
+function getSoXuTichLuy(MaKhachHang)
+{
+    var sql = "select SoXuTichLuy from khachhang where MaKhachHang=?";
+    return new Promise(function (resolve, reject)
+    {
+        db.query(sql, [MaKhachHang], function (err, result)
+        {
+            if (err)
+            {
+                reject(err)
+            } else
+            {
+                resolve(result[0].SoXuTichLuy)
+            }
+        })
+    })
+}
+function getSoLuongTon(MaSach)
+{
+    var sql = "select SoLuongTon from sach where MaSach=?";
+    return new Promise(function (resolve, reject)
+    {
+        db.query(sql, [MaSach], function (err, result)
+        {
+            if (err)
+            {
+                reject(err)
+            } else
+            {
+                resolve(result)
+            }
+        })
+    })
+}
+function getBRKhachHang(MaKhachHang,MaSach)
+{
+    var sql = "select * from brkhachhang where MaKhachHang=? and MaSach=?";
+    return new Promise(function (resolve, reject)
+    {
+        db.query(sql, [MaKhachHang,MaSach], function (err, result)
+        {
+            if (err)
+            {
+                reject(err)
+            } else
+            {
+                resolve(result)
+            }
+        })
+    })
+}
+
+function getTenSach(MaSach)
+{
+    var sql = "select TenSach from sach where MaSach=?";
+    return new Promise(function (resolve, reject)
+    {
+        db.query(sql, [MaSach], function (err, result)
+        {
+            if (err)
+            {
+                reject(err)
+            } else
+            {
+                resolve(result)
+            }
+        })
+    })
+}
 module.exports = router;
