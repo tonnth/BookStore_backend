@@ -171,14 +171,22 @@ router.put('/thich', function (req, res, next)
 
         db.query('select * from brkhachhang where MaKhachHang=? and MaSach=?', [decoded.MaKhachHang, req.body.MaSach], function (error, result)
         {
-            if (error) console.log('Lỗi get brkhachhang:',error);
+            if (error)
+            {
+                console.log('Lỗi get brkhachhang:',error);
+                res.send({"code":"fail"});
+            }
             else
             {
                 if (result.length === 0) //Chư có trong BR khách hàng thì thêm vào
                 {
                     db.query('insert into brkhachhang (MaKhachHang,MaSach,YeuThich,SoLuongMua,SoLuotXem) values (?,?,1,0,0)', [decoded.MaKhachHang, req.body.MaSach], function (error2, result2)
                     {
-                        if (error2) console.log('Lỗi thêm brkhachhang:',error2);
+                        if (error2)
+                        {
+                            console.log('Lỗi thêm brkhachhang:',error2);
+                            res.send({"code":"fail"});
+                        }
                         else
                         {
                             res.send({"code": "success","messsage":"like thêm mới thành công"})
@@ -189,7 +197,11 @@ router.put('/thich', function (req, res, next)
                 {
                     db.query('update brkhachhang set YeuThich=? where MaKhachHang=? and MaSach=?', [req.body.like,decoded.MaKhachHang, req.body.MaSach], function (error, result)
                     {
-                        if (error) console.log('Lỗi update brkhachhang:',error);
+                        if (error)
+                        {
+                            console.log('Lỗi update brkhachhang:',error);
+                            res.send({"code":"fail"});
+                        }
                         else
                         {
                             res.send({"code": "success","messsage":"like update thành công"})
