@@ -16,7 +16,7 @@ var connection = mysql.createPool({
     host: 'us-cdbr-iron-east-05.cleardb.net',
     user: 'b6876d546ca64a',
     password: 'ef5bb417',
-    database: '/heroku_e124678025086b6',
+    database: 'heroku_e124678025086b6',
     port: '3306'
     
     
