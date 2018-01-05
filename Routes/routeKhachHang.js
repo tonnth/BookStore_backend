@@ -128,7 +128,7 @@ router.post('/dangnhap?', function (req, res, next)
 
 router.get('/thongtin?', function (req, res, next)
 {
-    console.log('/token');
+
     var token = req.headers.authorization;
     var decoded = jwt.verify(token, 'tohiti');
     db.query("select MaKhachHang,HoTenKhachHang,Email,SoXuTichLuy from khachhang where MaKhachHang=?", [decoded.MaKhachHang], function (err, result)
@@ -148,7 +148,6 @@ router.get('/dsyeuthich?', function (req, res, next)
 
     var token = req.headers.authorization;
     var decoded = jwt.verify(token, 'tohiti');
-    console.log(decoded);
     KhachHang.getDanhSachYeuThich(decoded.MaKhachHang, function (err, rows)
     {
         if (err)
@@ -166,9 +165,6 @@ router.put('/thich', function (req, res, next)
 {
     var token = req.headers.authorization;
     var decoded = jwt.verify(token, 'tohiti');
-    console.log('Body:',req.body);
-
-
         db.query('select * from brkhachhang where MaKhachHang=? and MaSach=?', [decoded.MaKhachHang, req.body.MaSach], function (error, result)
         {
             if (error)
@@ -238,9 +234,9 @@ router.get('/lichsumuahang?', function (req, res, next)
 {
     var token = req.headers.authorization;
     var decoded = jwt.verify(token, 'tohiti');
-    console.log(decoded);
     var dsDonHang = [];
     var donhang;
+    console.log('LICH SU MUA HANG');
     db.query("select * from hoadon INNER join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?", [decoded.MaKhachHang], async function (errorHoaDon, resultHoaDon)
     {
         if (errorHoaDon)
@@ -337,10 +333,8 @@ router.post('/dathang?', async function (req, res, next)
 
 
     var SoXuTichLuy = await getSoXuTichLuy(decoded.MaKhachHang);
-    console.log('So xu tich luy ban dau:', SoXuTichLuy)
-    console.log('So xu su dung:', req.body.SoXuSuDung)
     SoXuTichLuy -= req.body.SoXuSuDung;
-    console.log('So xu tich luy sau: ', SoXuTichLuy);
+
 
 
     var sql = "update khachhang set SoXuTichLuy=? where MaKhachHang=?";
@@ -355,10 +349,10 @@ router.post('/dathang?', async function (req, res, next)
     })
 
 
-    var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang) " +
-        "Values (?,?,?,?,?,?,?,?,?)";
+    var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang,ThietBiDatHang) " +
+        "Values (?,?,?,?,?,?,?,?,?,?)";
     var currentdate = new Date();
-    db.query(query, [currentdate, decoded.MaKhachHang, req.body.MaKhuVucGiaoHang, req.body.DiaChiGiaoHang, req.body.TenNguoiNhan, req.body.SoDienThoai, req.body.SoXuSuDung, TongTien, 0], async function (error, result)
+    db.query(query, [currentdate, decoded.MaKhachHang, req.body.MaKhuVucGiaoHang, req.body.DiaChiGiaoHang, req.body.TenNguoiNhan, req.body.SoDienThoai, req.body.SoXuSuDung, TongTien, 0,'Mobile'], async function (error, result)
     {
         if (error)
         {
@@ -460,6 +454,16 @@ router.post('/dathang?', async function (req, res, next)
                 }
 
             })
+            //Xóa giỏ hàng
+            await db.query('Delete from giohang where MaKhachHang=?',[decoded.MaKhachHang],function (err7,rows)
+            {
+                if(err7)
+                {
+                    console.log('Lỗi xóa giỏ hàng cũ',err7);
+                }
+
+            })
+
 
 
         }

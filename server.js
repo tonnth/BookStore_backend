@@ -10,6 +10,7 @@ var connection = require('./Dbconnection');
 var routeSach = require('./Routes/routeSach');
 var routeKhachHang = require('./Routes/routeKhachHang');
 var routeHoaDon = require('./Routes/routeHoaDon');
+var routeGioHang = require('./Routes/routeGioHang');
 
 var routeTheLoai = require('./Routes/routeTheLoai');
 var app = express();
@@ -20,6 +21,7 @@ app.use('/sach',routeSach);
 app.use('/khachhang',routeKhachHang);
 app.use('/hoadon',routeHoaDon);
 app.use('/theloai',routeTheLoai);
+app.use('/giohang',routeGioHang);
 app.use(express.static('img'));
 
 
