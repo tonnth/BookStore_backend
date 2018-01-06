@@ -574,7 +574,7 @@ router.post('/dathang?', async function (req, res, next)
             var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
                 from: 'ABC BookStore',
                 to: decoded.Email,
-                subject: 'Quên mật khẩu',
+                subject: 'ABC Bookstore - Xác nhận đơn hàng',
                 html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
                 '<p>Bạn vừa đặt thành công đơn hàng số #'+result.insertId+'</p>\n' +
                 '<p>Tổng tiền hóa đơn:  <strong>'+TongTien+'</strong></p>\n' +
