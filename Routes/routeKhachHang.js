@@ -5,6 +5,16 @@ var Sach = require(('../Models/KhachHang'))
 var crypto = require('crypto');
 var db = require('../Dbconnection');
 var jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'conboconco11@gmail.com',
+        pass: '14521187'
+    }
+});
+
 
 //
 // router.post('/token?',function(req,res,next)
@@ -56,6 +66,19 @@ router.post('/dangky', function (req, res, next)
                     } else
                     {
                         //   console.log('The solution is: ', results);
+
+                        var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+                            from: 'ABC BookStore',
+                            to: req.body.Email,
+                            subject: 'D',
+                            html: '<p>Xin chào '+req.body.HoTenKhachHang+'!</p>\n' +
+                            '<p>Bạn vừa đăng ký thành công tài khoản trên ABC Bookstore</p>\n'
+
+                        }
+                        transporter.sendMail(mailOptions, function (err, info) {
+                            if(err)
+                                console.log(err)
+                        });
                         res.send({
                             "code": 200,
                             "message": "Đăng ký thành công",
@@ -142,6 +165,8 @@ router.get('/thongtin?', function (req, res, next)
 
 
 });
+
+
 
 router.get('/dsyeuthich?', function (req, res, next)
 {
@@ -321,6 +346,39 @@ router.get('/:id?', function (req, res, next)
         });
     }
 });
+
+
+router.post('/quenmatkhau', function (req, res, next)
+{
+    var token = req.headers.authorization;
+    var decoded = jwt.verify(token, 'tohiti');
+
+    var mkMoi = crypto.randomBytes(10).toString('hex');
+    var md5 = crypto.createHash('md5').update(mkMoi).digest("hex");
+    db.query('update khachhang set MatKhau=? where MaKhachHang=?',[md5,decoded.MaKhachHang],function (err,rows)
+    {
+        if(err) console.log(err);
+    })
+    var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+        from: 'ABC BookStore',
+        to: decoded.Email,
+        subject: 'Quên mật khẩu',
+        html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
+        '<p>Cửa hàng bán sách trực tuyến ABC vừa nhận được yêu cầu cấp mật khẩu mới"</p>\n' +
+        '<p>Mật khẩu mới của bạn là:  <strong>'+mkMoi+'</strong></p>\n' +
+            '<p>Vui lòng đổi mật khẩu sau khi đăng nhập.</p>',
+    }
+    transporter.sendMail(mailOptions, function (err, info) {
+        if(err)
+            console.log(err)
+        else
+            res.send({'code':'success'});
+    });
+
+    res.send({'code':'fail'});
+});
+
+
 router.post('/doimatkhau?', async function (req, res, next)
 {
     var token = req.headers.authorization;
@@ -503,9 +561,25 @@ router.post('/dathang?', async function (req, res, next)
 
             })
 
-
+            var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+                from: 'ABC BookStore',
+                to: decoded.Email,
+                subject: 'Quên mật khẩu',
+                html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
+                '<p>Bạn vừa đặt thành công đơn hàng số #'+result.insertId+'</p>\n' +
+                '<p>Tổng tiền hóa đơn:  <strong>'+TongTien+'</strong></p>\n' +
+                '<p>Đơn hàng bao gồm: '+noidung+'</p>'+
+                '<p>ABC Bookstore xin cảm ơn!</p>',
+            }
+            transporter.sendMail(mailOptions, function (err, info) {
+                if(err)
+                    console.log(err)
+                else
+                    res.send({'code':'success'});
+            });
 
         }
+
         res.send({'code': ' đặt hàng thành công'});
 
     });
