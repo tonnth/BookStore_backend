@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 var connection = mysql.createPool({
 
-    createPoolhost: 'localhost',
-    user: 'root',
-    password: '1234',
-    database: 'websitebansach',
+    // createPoolhost: 'localhost',
+    // user: 'root',
+    // password: '1234',
+    // database: 'websitebansach',
 
     // //#Host Heroku
     //host: 'us-cdbr-iron-east-05.cleardb.net',
@@ -13,11 +13,11 @@ var connection = mysql.createPool({
     //database: 'heroku_1873b262d36b3f6',
     //port: '3306'
     
-    // host: 'us-cdbr-iron-east-05.cleardb.net',
-    // user: 'b6876d546ca64a',
-    // password: 'ef5bb417',
-    // database: 'heroku_e124678025086b6',
-    // port: '3306'
+    host: 'us-cdbr-iron-east-05.cleardb.net',
+    user: 'b6876d546ca64a',
+    password: 'ef5bb417',
+    database: 'heroku_e124678025086b6',
+    port: '3306'
     
     
 

@@ -348,34 +348,44 @@ router.get('/:id?', function (req, res, next)
 });
 
 
-router.post('/quenmatkhau', function (req, res, next)
+router.post('/quenmatkhau', async function (req, res, next)
 {
-    var token = req.headers.authorization;
-    var decoded = jwt.verify(token, 'tohiti');
-
-    var mkMoi = crypto.randomBytes(10).toString('hex');
-    var md5 = crypto.createHash('md5').update(mkMoi).digest("hex");
-    db.query('update khachhang set MatKhau=? where MaKhachHang=?',[md5,decoded.MaKhachHang],function (err,rows)
+    db.query('select * from khachhang where Email=?',[req.body.Email],function (err, result)
     {
-        if(err) console.log(err);
-    })
-    var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
-        from: 'ABC BookStore',
-        to: decoded.Email,
-        subject: 'ABC Bookstore - Cấp lại mật khẩu',
-        html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
-        '<p>Cửa hàng bán sách trực tuyến ABC vừa nhận được yêu cầu cấp mật khẩu mới"</p>\n' +
-        '<p>Mật khẩu mới của bạn là:  <strong>'+mkMoi+'</strong></p>\n' +
-            '<p>Vui lòng đổi mật khẩu sau khi đăng nhập.</p>',
-    }
-    transporter.sendMail(mailOptions, function (err, info) {
-        if(err)
-            console.log(err)
+        if(err) res.json(err);
         else
-            res.send({'code':'success'});
-    });
+        {
+            if(result.length > 0)
+            {
+                var khachhang=result[0];
 
-    res.send({'code':'fail'});
+                var mkMoi = crypto.randomBytes(4).toString('hex');
+                var md5 = crypto.createHash('md5').update(mkMoi).digest("hex");
+                db.query('update khachhang set MatKhau=? where MaKhachHang=?',[md5,khachhang.MaKhachHang],function (err,rows)
+                {
+                    if(err) console.log(err);
+                })
+                var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+                    from: 'ABC BookStore',
+                    to: req.body.Email,
+                    subject: 'ABC Bookstore - Cấp lại mật khẩu',
+                    html: '<p>Xin chào '+khachhang.HoTenKhachHang+'!</p>\n' +
+                    '<p>Cửa hàng bán sách trực tuyến ABC vừa nhận được yêu cầu cấp mật khẩu mới.</p>\n' +
+                    '<p>Mật khẩu mới của bạn là:  <strong>'+mkMoi+'</strong></p>\n' +
+                    '<p>Vui lòng đổi mật khẩu sau khi đăng nhập.</p>',
+                }
+                transporter.sendMail(mailOptions, function (err, info) {
+                    if(err)
+                        console.log(err)
+                    else
+                        res.send({'code':'success'});
+                });
+            }
+            res.send({'code':'fail'});
+
+        }
+    })
+
 });
 
 
@@ -653,6 +663,24 @@ function getTenSach(MaSach)
             } else
             {
                 resolve(result)
+            }
+        })
+    })
+}
+
+function getKhachHang(Email)
+{
+    var sql = "select * from khachhang where Email=?";
+    return new Promise(function (resolve, reject)
+    {
+        db.query(sql, [Email], function (err, result)
+        {
+            if (err)
+            {
+                reject(err)
+            } else
+            {
+                resolve(result[0])
             }
         })
     })
