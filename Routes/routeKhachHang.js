@@ -70,7 +70,7 @@ router.post('/dangky', function (req, res, next)
                         var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
                             from: 'ABC BookStore',
                             to: req.body.Email,
-                            subject: 'D',
+                            subject: 'ABC Bookstore - Xác nhận đăng ký thành công',
                             html: '<p>Xin chào '+req.body.HoTenKhachHang+'!</p>\n' +
                             '<p>Bạn vừa đăng ký thành công tài khoản trên ABC Bookstore</p>\n'
 
@@ -362,7 +362,7 @@ router.post('/quenmatkhau', function (req, res, next)
     var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
         from: 'ABC BookStore',
         to: decoded.Email,
-        subject: 'Quên mật khẩu',
+        subject: 'ABC Bookstore - Cấp lại mật khẩu',
         html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
         '<p>Cửa hàng bán sách trực tuyến ABC vừa nhận được yêu cầu cấp mật khẩu mới"</p>\n' +
         '<p>Mật khẩu mới của bạn là:  <strong>'+mkMoi+'</strong></p>\n' +
