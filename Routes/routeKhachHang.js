@@ -321,7 +321,46 @@ router.get('/:id?', function (req, res, next)
         });
     }
 });
-
+router.post('/doimatkhau?', async function (req, res, next)
+{
+    var token = req.headers.authorization;
+    var decoded = jwt.verify(token, 'tohiti');
+    var md5MatKhauCu = crypto.createHash('md5').update(req.body.MatKhauCu).digest("hex");
+    db.query('select * from khachhang where MaKhachHang=?',[decoded.MaKhachHang], function (err,rows)
+    {
+        if(err)
+        {
+            console.log('Lỗi lấy khách hàng:',err);
+            res.json(err);
+        }
+        else
+        {
+            if(md5MatKhauCu === rows[0].MatKhau)
+            {
+                var md5MatKhauMoi = crypto.createHash('md5').update(req.body.MatKhauMoi).digest("hex");
+                db.query('update khachhang set MatKhau=? where MaKhachHang=?',[md5MatKhauMoi,decoded.MaKhachHang], function (err2,rows2)
+                {
+                    if(err2)
+                    {
+                        console.log('Lỗi cập nha65 mật khẩu:', err2);
+                        res.json(err2);
+                    }
+                    else
+                    {
+                        res.send({'code':'success'});
+                    }
+                })
+            }
+            else
+            {
+                res.send({
+                    'code': 'fail',
+                    'message':'Mật khẩu hiện tại không đúng'
+                })
+            }
+        }
+    })
+});
 
 router.post('/dathang?', async function (req, res, next)
 {

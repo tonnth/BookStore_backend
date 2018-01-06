@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3f1fb5-add3-4dfd-8402-86db8aaff0bd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Dbconnection.js" afterPath="$PROJECT_DIR$/Dbconnection.js" />
       <change beforePath="$PROJECT_DIR$/Routes/routeKhachHang.js" afterPath="$PROJECT_DIR$/Routes/routeKhachHang.js" />
-      <change beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
+      <change beforePath="$PROJECT_DIR$/Routes/routeSach.js" afterPath="$PROJECT_DIR$/Routes/routeSach.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routeSach.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="routeSach.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routes/routeSach.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+            <state relative-caret-position="216">
+              <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -47,7 +46,7 @@
       <file leaf-file-name="routeGioHang.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
+            <state relative-caret-position="760">
               <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
               <folding>
                 <element signature="e#1788#1843#0" expanded="false" />
@@ -56,14 +55,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routeKhachHang.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="routeKhachHang.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1403">
-              <caret line="364" column="13" lean-forward="false" selection-start-line="364" selection-start-column="13" selection-end-line="364" selection-end-column="13" />
+            <state relative-caret-position="9215">
+              <caret line="568" column="0" lean-forward="false" selection-start-line="568" selection-start-column="0" selection-end-line="584" selection-end-column="1" />
               <folding>
                 <element signature="e#944#1024#0" expanded="false" />
                 <element signature="n#!!block;n#Login#0" expanded="false" />
+                <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+                <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -131,6 +132,8 @@
       <find>MaHoaDon</find>
       <find>MaHoa</find>
       <find>lich</find>
+      <find>md5</find>
+      <find>Ban</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,6 +151,7 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/Routes/routeGioHang.js" />
         <option value="$PROJECT_DIR$/Routes/routeKhachHang.js" />
+        <option value="$PROJECT_DIR$/Routes/routeSach.js" />
       </list>
     </option>
   </component>
@@ -191,6 +195,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,7 +218,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -274,12 +278,14 @@
       <workItem from="1515042503812" duration="154000" />
       <workItem from="1515063604293" duration="2194000" />
       <workItem from="1515120236039" duration="12936000" />
-      <workItem from="1515148680483" duration="2542000" />
+      <workItem from="1515148680483" duration="9485000" />
+      <workItem from="1515165962463" duration="561000" />
+      <workItem from="1515195223953" duration="400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100092000" />
+    <option name="totallyTimeSpent" value="107996000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -292,18 +298,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="991" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1594509" sideWeight="0.49367088" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.115428574" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32114285" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24815206" sideWeight="0.5063291" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -357,6 +364,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -378,6 +387,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -413,6 +424,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -524,6 +537,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -559,6 +574,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -580,6 +597,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -615,6 +634,8 @@
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -745,17 +766,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Routes/routeSach.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
+        <state relative-caret-position="760">
           <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
           <folding>
             <element signature="e#1788#1843#0" expanded="false" />
@@ -765,12 +778,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1403">
-          <caret line="364" column="13" lean-forward="false" selection-start-line="364" selection-start-column="13" selection-end-line="364" selection-end-column="13" />
+        <state relative-caret-position="9215">
+          <caret line="568" column="0" lean-forward="false" selection-start-line="568" selection-start-column="0" selection-end-line="584" selection-end-column="1" />
           <folding>
             <element signature="e#944#1024#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
+            <element signature="n#!!block;n#getSoXuTichLuy#0" expanded="false" />
+            <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Routes/routeSach.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="50" column="13" lean-forward="false" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
