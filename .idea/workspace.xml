@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3f1fb5-add3-4dfd-8402-86db8aaff0bd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Dbconnection.js" afterPath="$PROJECT_DIR$/Dbconnection.js" />
       <change beforePath="$PROJECT_DIR$/Routes/routeKhachHang.js" afterPath="$PROJECT_DIR$/Routes/routeKhachHang.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,7 +23,7 @@
       <file leaf-file-name="Dbconnection.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Dbconnection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="57">
               <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="6" selection-end-column="31" />
               <folding>
                 <marker date="1515524979000" expanded="true" signature="370:538" ph="..." />
@@ -46,8 +45,8 @@
       <file leaf-file-name="routeGioHang.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1102">
-              <caret line="58" column="18" lean-forward="false" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
+            <state relative-caret-position="377">
+              <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
               <folding>
                 <element signature="e#1788#1843#0" expanded="false" />
               </folding>
@@ -58,13 +57,13 @@
       <file leaf-file-name="routeKhachHang.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="455" column="0" lean-forward="false" selection-start-line="455" selection-start-column="0" selection-end-line="455" selection-end-column="0" />
+            <state relative-caret-position="5">
+              <caret line="273" column="31" lean-forward="false" selection-start-line="273" selection-start-column="31" selection-end-line="273" selection-end-column="31" />
               <folding>
                 <element signature="e#1146#1226#0" expanded="false" />
                 <element signature="n#!!block;n#Login#0" expanded="false" />
-                <element signature="e#10451#11951#0" expanded="false" />
-                <element signature="e#12016#13311#0" expanded="false" />
+                <element signature="e#10602#12102#0" expanded="false" />
+                <element signature="e#12167#13462#0" expanded="false" />
                 <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
               </folding>
             </state>
@@ -142,13 +141,13 @@
       <find>decoded</find>
       <find>MaHoaDon</find>
       <find>MaHoa</find>
-      <find>lich</find>
       <find>md5</find>
       <find>Ban</find>
       <find>get</find>
       <find>to:</find>
       <find>đặt</find>
       <find>dathang</find>
+      <find>lich</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,7 +186,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="991" />
@@ -210,7 +209,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,6 +230,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -302,12 +301,14 @@
       <workItem from="1515250540295" duration="761000" />
       <workItem from="1515286959829" duration="423000" />
       <workItem from="1515523075236" duration="1987000" />
-      <workItem from="1515525173946" duration="2270000" />
+      <workItem from="1515525173946" duration="3442000" />
+      <workItem from="1515531861322" duration="435000" />
+      <workItem from="1515533919057" duration="1237000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127484000" />
+    <option name="totallyTimeSpent" value="130328000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -319,7 +320,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="991" extended-state="1" />
+    <frame x="0" y="23" width="1920" height="991" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1594509" sideWeight="0.49367088" order="0" side_tool="false" content_ui="combo" />
@@ -327,8 +328,8 @@
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20571429" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -376,8 +377,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -400,8 +401,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -438,8 +439,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -552,8 +553,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -590,8 +591,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -614,8 +615,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -652,8 +653,8 @@
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>
@@ -775,14 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Models/KhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -791,19 +784,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1102">
-          <caret line="58" column="18" lean-forward="false" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
-          <folding>
-            <element signature="e#1788#1843#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Dbconnection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="57">
           <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="6" selection-end-column="31" />
           <folding>
             <marker date="1515524979000" expanded="true" signature="370:538" ph="..." />
@@ -811,15 +794,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
+          <folding>
+            <element signature="e#1788#1843#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="455" column="0" lean-forward="false" selection-start-line="455" selection-start-column="0" selection-end-line="455" selection-end-column="0" />
+        <state relative-caret-position="5">
+          <caret line="273" column="31" lean-forward="false" selection-start-line="273" selection-start-column="31" selection-end-line="273" selection-end-column="31" />
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />
-            <element signature="e#10451#11951#0" expanded="false" />
-            <element signature="e#12016#13311#0" expanded="false" />
+            <element signature="e#10602#12102#0" expanded="false" />
+            <element signature="e#12167#13462#0" expanded="false" />
             <element signature="n#!!block;n#getBRKhachHang#0" expanded="false" />
           </folding>
         </state>

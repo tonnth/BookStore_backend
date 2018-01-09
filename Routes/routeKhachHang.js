@@ -262,7 +262,7 @@ router.get('/lichsumuahang?', function (req, res, next)
     var dsDonHang = [];
     var donhang;
     console.log('LICH SU MUA HANG');
-    db.query("select * from hoadon INNER join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?", [decoded.MaKhachHang], async function (errorHoaDon, resultHoaDon)
+    db.query("select * from hoadon Leff join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?", [decoded.MaKhachHang], async function (errorHoaDon, resultHoaDon)
     {
         if (errorHoaDon)
         {
@@ -271,27 +271,31 @@ router.get('/lichsumuahang?', function (req, res, next)
         }
         else
         {
-
-
+            var dsSanPham = [];
             for (i = 0; i < resultHoaDon.length; i++)
             {
-                var dsSanPham = [];
-                dsSanPham = await getDanhSachSanPham(resultHoaDon[i].MaHoaDon);
-                //console.log('Trang thai hien tai la:', trangthai)
-                donhang = {
-                    MaHoaDon: resultHoaDon[i].MaHoaDon,
-                    NgayLapHoaDon: resultHoaDon[i].NgayLapHoaDon,
-                    NgayThuTien: resultHoaDon[i].NgayThuTien,
-                    TongTienHoaDon: resultHoaDon[i].TongTienHoaDon,
-                    DiaChiGiaoHang: resultHoaDon[i].DiaChiGiaoHang,
-                    TenNguoiNhan: resultHoaDon[i].TenNguoiNhan,
-                    SoDienThoai: resultHoaDon[i].SoDienThoai,
-                    SoXuSuDung: resultHoaDon[i].SoXuSuDung,
-                    PhiGiaoHang: resultHoaDon[i].PhiGiaoHang,
-                    TrangThai: resultHoaDon[i].TrangThai,
-                    dsSanPham: dsSanPham,
+                if(resultHoaDon[i].MaPhieuThu != null)
+                {
+
+                    dsSanPham = await getDanhSachSanPham(resultHoaDon[i].MaHoaDon);
+                    //console.log('Trang thai hien tai la:', trangthai)
+                    donhang = {
+                        MaHoaDon: resultHoaDon[i].MaHoaDon,
+                        NgayLapHoaDon: resultHoaDon[i].NgayLapHoaDon,
+                        NgayThuTien: resultHoaDon[i].NgayThuTien,
+                        TongTienHoaDon: resultHoaDon[i].TongTienHoaDon,
+                        DiaChiGiaoHang: resultHoaDon[i].DiaChiGiaoHang,
+                        TenNguoiNhan: resultHoaDon[i].TenNguoiNhan,
+                        SoDienThoai: resultHoaDon[i].SoDienThoai,
+                        SoXuSuDung: resultHoaDon[i].SoXuSuDung,
+                        PhiGiaoHang: resultHoaDon[i].PhiGiaoHang,
+                        TrangThai: resultHoaDon[i].TrangThai,
+                        dsSanPham: dsSanPham,
+                    }
+                    dsDonHang.push(donhang);
                 }
-                dsDonHang.push(donhang);
+
+
             }
             res.send(dsDonHang);
         }
@@ -591,7 +595,7 @@ router.post('/dathang?', async function (req, res, next)
 
                 }
 
-                res.send({'code': ' đặt hàng thành công'});
+                res.send({'code': 'đặt hàng thành công'});
 
             });
 
