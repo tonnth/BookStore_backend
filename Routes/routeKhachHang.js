@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'conboconco11@gmail.com',
-        pass: '14521187'
+        pass: 'boconcocon11'
     }
 });
 
@@ -437,162 +437,173 @@ router.post('/dathang?', async function (req, res, next)
     var GioHang = req.body.GioHang;
     var decoded = jwt.verify(token, 'tohiti');
     var TongTien = req.body.TongTienHoaDon;
-
-
-    var SoXuTichLuy = await getSoXuTichLuy(decoded.MaKhachHang);
-    SoXuTichLuy -= req.body.SoXuSuDung;
-
-
-
-    var sql = "update khachhang set SoXuTichLuy=? where MaKhachHang=?";
-    await db.query(sql, [SoXuTichLuy, decoded.MaKhachHang], function (err0, result0)
+    var SoXuTichLuy=0;
+    db.query('select * from khachhang where MaKhachHang=?',[decoded.MaKhachHang], function (err,result)
     {
-        // if(err2) res.json(err2);
-        if (err0)
-        {
-            console.log('Lỗi update số xu: ', err0);
-        }
-
-    })
-
-
-    var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang,ThietBiDatHang) " +
-        "Values (?,?,?,?,?,?,?,?,?,?)";
-    var currentdate = new Date();
-    db.query(query, [currentdate, decoded.MaKhachHang, req.body.MaKhuVucGiaoHang, req.body.DiaChiGiaoHang, req.body.TenNguoiNhan, req.body.SoDienThoai, req.body.SoXuSuDung, TongTien, 0,'Mobile'], async function (error, result)
-    {
-        if (error)
-        {
-            console.log(error);
-            res.json(error);
-        }
+        if(err) res.json(err);
         else
         {
-            for (i = 0; i < GioHang.length; i++)
+            SoXuTichLuy = result[0].SoXuTichLuy - req.body.SoXuSuDung;
+            var sql = "update khachhang set SoXuTichLuy="+parseInt(SoXuTichLuy)+" where MaKhachHang="+decoded.MaKhachHang;
+            console.log(sql);
+            db.query(sql, function (err0, result0)
             {
-                //Update noidung
-                var TenSach = await getTenSach(GioHang[i].MaSach);
-                TenSach = TenSach[0].TenSach;
-                noidung += GioHang[i].SoLuongBan + ' cuốn ' + TenSach + ', ';
-
-                //Update số lượng tồn của đầu sách
-                // console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
-                var soLuongTon = await getSoLuongTon(GioHang[i].MaSach);
-                soLuongTon = soLuongTon[0].SoLuongTon;
-                soLuongTon = soLuongTon - GioHang[i].SoLuongBan;
-
-
-                var sql = "update sach set SoLuongTon=? where MaSach=?";
-                await db.query(sql, [soLuongTon, GioHang[i].MaSach], function (err2, result2)
+                // if(err2) res.json(err2);
+                if (err0)
                 {
-                    // if(err2) res.json(err2);
-                    if (err2)
-                    {
-                        console.log('Lỗi update số lượng tồn: ', err2);
-                    }
-
-                })
-
-                //Tạo các chi tiết hóa đơn
-                // console.log('TẠO CHI TIẾT HÓA ĐƠN')
-                await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)', [result.insertId, GioHang[i].MaSach, GioHang[i].SoLuongBan, GioHang[i].GiaBan], function (err3, result3)
-                {
-                    // if(err3) res.json(err3);
-                    if (err3)
-                    {
-                        console.log('Lỗi tạo chi tiết hóa đơn: ', err3);
-                    }
-
-                });
-
-                //Cập nhật BR
-                // console.log('CẬP NHẬT BR KHÁCH HÀNG')
-                var brkhachhang = await getBRKhachHang(decoded.MaKhachHang, GioHang[i].MaSach);
-                if (brkhachhang.length === 0)
-                {
-                    console.log('Tạo mới brkhachhang');
-                    await db.query('insert into brkhachhang (MaKhachHang,MaSach,SoLuongMua) values (?,?,?)', [decoded.MaKhachHang, GioHang[i].MaSach, GioHang[i].SoLuongBan], function (err4, result4)
-                    {
-                        // if(err4) res.json(err4);
-                        if (err4)
-                        {
-                            console.log('Lỗi tạo mới brkhachhang: ', err4);
-                        }
-
-                    })
-                }
-                else
-                {
-                    console.log('Update brkhachhang');
-                    var soLuongMua = brkhachhang[0].SoLuongMua;
-                    soLuongMua = soLuongMua + GioHang[i].SoLuongBan;
-                    var query = 'update brkhachhang set SoLuongMua=' + soLuongMua + ' where MaKhachHang=' + decoded.MaKhachHang + ' and MaSach=' + GioHang[i].MaSach;
-                    console.log(query);
-                    // await db.query('update brkhachhang set SoLuongMua=? where MaKhachHang=? and MaSach=?',[soLuongMua,decoded.MaKHachHang,GioHang[i].MaSach], function (err5,result5)
-                    // {
-                    //     // if(err5) res.json(err5);
-                    //     if(err5)
-                    //     {
-                    //         console.log('Lỗi cập nhật brkhachhang: ',err5);
-                    //     }
-                    //     console.log(result5);
-                    // })
-
-                    await db.query(query, function (err5, result5)
-                    {
-                        // if(err5) res.json(err5);
-                        if (err5)
-                        {
-                            console.log('Lỗi cập nhật brkhachhang: ', err5);
-                        }
-
-                    })
-                }
-
-            }
-
-            // console.log('Tạo phiếu thu tiền');
-            await db.query('insert into phieuthutien (MaKhachHang,SoTienThu,NoiDung,TrangThai,MaHoaDon) values(?,?,?,?,?)', [decoded.MaKhachHang, TongTien, noidung, 'Chưa thanh toán(Không cho nợ)', result.insertId], function (err6, result6)
-            {
-                // if(err6) res.json(err6);
-                if (err6)
-                {
-                    console.log('Lỗi tạo phiếu thu tiền: ', err6);
-                }
-
-            })
-            //Xóa giỏ hàng
-            await db.query('Delete from giohang where MaKhachHang=?',[decoded.MaKhachHang],function (err7,rows)
-            {
-                if(err7)
-                {
-                    console.log('Lỗi xóa giỏ hàng cũ',err7);
+                    console.log('Lỗi update số xu: ', err0);
                 }
 
             })
 
-            var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
-                from: 'ABC BookStore',
-                to: decoded.Email,
-                subject: 'ABC Bookstore - Xác nhận đơn hàng',
-                html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
-                '<p>Bạn vừa đặt thành công đơn hàng số #'+result.insertId+'</p>\n' +
-                '<p>Tổng tiền hóa đơn:  <strong>'+TongTien+'</strong></p>\n' +
-                '<p>Đơn hàng bao gồm: '+noidung+'</p>'+
-                '<p>ABC Bookstore xin cảm ơn!</p>',
-            }
-            transporter.sendMail(mailOptions, function (err, info) {
-                if(err)
-                    console.log(err)
+
+            var query = "INSERT INTO hoadon (NgayLapHoaDon,MaKhachHang,MaKhuVucGiaoHang,DiaChiGiaoHang,TenNguoiNhan,SoDienThoai,SoXuSuDung,TongTienHoaDon,PhiGiaoHang,ThietBiDatHang) " +
+                "Values (?,?,?,?,?,?,?,?,?,?)";
+            var currentdate = new Date();
+            db.query(query, [currentdate, decoded.MaKhachHang, req.body.MaKhuVucGiaoHang, req.body.DiaChiGiaoHang, req.body.TenNguoiNhan, req.body.SoDienThoai, req.body.SoXuSuDung, TongTien, 0,'Mobile'], async function (error, result)
+            {
+                if (error)
+                {
+                    console.log(error);
+                    res.json(error);
+                }
                 else
-                    res.send({'code':'success'});
+                {
+                    for (i = 0; i < GioHang.length; i++)
+                    {
+                        //Update noidung
+                        var TenSach = await getTenSach(GioHang[i].MaSach);
+                        TenSach = TenSach[0].TenSach;
+                        noidung += GioHang[i].SoLuongBan + ' cuốn ' + TenSach + ', ';
+
+                        //Update số lượng tồn của đầu sách
+                        // console.log('CẬP NHẬT SỐ LƯỢNG TỒN')
+                        var soLuongTon = await getSoLuongTon(GioHang[i].MaSach);
+                        soLuongTon = soLuongTon[0].SoLuongTon;
+                        soLuongTon = soLuongTon - GioHang[i].SoLuongBan;
+
+
+                        var sql = "update sach set SoLuongTon=? where MaSach=?";
+                        await db.query(sql, [soLuongTon, GioHang[i].MaSach], function (err2, result2)
+                        {
+                            // if(err2) res.json(err2);
+                            if (err2)
+                            {
+                                console.log('Lỗi update số lượng tồn: ', err2);
+                            }
+
+                        })
+
+                        //Tạo các chi tiết hóa đơn
+                        // console.log('TẠO CHI TIẾT HÓA ĐƠN')
+                        await db.query('insert into chitiethoadon (MaHoaDon,MaSach,SoLuongBan,GiaBanCu) values(?,?,?,?)', [result.insertId, GioHang[i].MaSach, GioHang[i].SoLuongBan, GioHang[i].GiaBan], function (err3, result3)
+                        {
+                            // if(err3) res.json(err3);
+                            if (err3)
+                            {
+                                console.log('Lỗi tạo chi tiết hóa đơn: ', err3);
+                            }
+
+                        });
+
+                        //Cập nhật BR
+                        // console.log('CẬP NHẬT BR KHÁCH HÀNG')
+                        var brkhachhang = await getBRKhachHang(decoded.MaKhachHang, GioHang[i].MaSach);
+                        if (brkhachhang.length === 0)
+                        {
+                            console.log('Tạo mới brkhachhang');
+                            await db.query('insert into brkhachhang (MaKhachHang,MaSach,SoLuongMua) values (?,?,?)', [decoded.MaKhachHang, GioHang[i].MaSach, GioHang[i].SoLuongBan], function (err4, result4)
+                            {
+                                // if(err4) res.json(err4);
+                                if (err4)
+                                {
+                                    console.log('Lỗi tạo mới brkhachhang: ', err4);
+                                }
+
+                            })
+                        }
+                        else
+                        {
+                            console.log('Update brkhachhang');
+                            var soLuongMua = brkhachhang[0].SoLuongMua;
+                            soLuongMua = soLuongMua + GioHang[i].SoLuongBan;
+                            var query = 'update brkhachhang set SoLuongMua=' + soLuongMua + ' where MaKhachHang=' + decoded.MaKhachHang + ' and MaSach=' + GioHang[i].MaSach;
+                            console.log(query);
+                            // await db.query('update brkhachhang set SoLuongMua=? where MaKhachHang=? and MaSach=?',[soLuongMua,decoded.MaKHachHang,GioHang[i].MaSach], function (err5,result5)
+                            // {
+                            //     // if(err5) res.json(err5);
+                            //     if(err5)
+                            //     {
+                            //         console.log('Lỗi cập nhật brkhachhang: ',err5);
+                            //     }
+                            //     console.log(result5);
+                            // })
+
+                            await db.query(query, function (err5, result5)
+                            {
+                                // if(err5) res.json(err5);
+                                if (err5)
+                                {
+                                    console.log('Lỗi cập nhật brkhachhang: ', err5);
+                                }
+
+                            })
+                        }
+
+                    }
+
+                    // console.log('Tạo phiếu thu tiền');
+                    await db.query('insert into phieuthutien (MaKhachHang,SoTienThu,NoiDung,TrangThai,MaHoaDon) values(?,?,?,?,?)', [decoded.MaKhachHang, TongTien, noidung, 'Chưa thanh toán(Không cho nợ)', result.insertId], function (err6, result6)
+                    {
+                        // if(err6) res.json(err6);
+                        if (err6)
+                        {
+                            console.log('Lỗi tạo phiếu thu tiền: ', err6);
+                        }
+
+                    })
+                    //Xóa giỏ hàng
+                    await db.query('Delete from giohang where MaKhachHang=?',[decoded.MaKhachHang],function (err7,rows)
+                    {
+                        if(err7)
+                        {
+                            console.log('Lỗi xóa giỏ hàng cũ',err7);
+                        }
+
+                    })
+
+                    var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+                        from: 'ABC BookStore',
+                        to: decoded.Email,
+                        subject: 'ABC Bookstore - Xác nhận đơn hàng',
+                        html: '<p>Xin chào '+decoded.HoTenKhachHang+'!</p>\n' +
+                        '<p>Bạn vừa đặt thành công đơn hàng số #'+result.insertId+'</p>\n' +
+                        '<p>Tổng tiền hóa đơn:  <strong>'+TongTien+'</strong></p>\n' +
+                        '<p>Đơn hàng bao gồm: '+noidung+'</p>'+
+                        '<p>ABC Bookstore xin cảm ơn!</p>',
+                    }
+                    transporter.sendMail(mailOptions, function (err, info) {
+                        if(err)
+                            console.log(err)
+                        else
+                            res.send({'code':'success'});
+                    });
+
+                }
+
+                res.send({'code': ' đặt hàng thành công'});
+
             });
 
         }
+    })
 
-        res.send({'code': ' đặt hàng thành công'});
+    // var SoXuTichLuy = await getSoXuTichLuy(decoded.MaKhachHang);
+    // SoXuTichLuy -= req.body.SoXuSuDung;
+    // console.log(SoXuTichLuy);
 
-    });
+
+
     // res.send({'code':' đặt hàng thành công'});
 });
 
