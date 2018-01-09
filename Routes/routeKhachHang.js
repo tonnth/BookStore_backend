@@ -262,7 +262,7 @@ router.get('/lichsumuahang?', function (req, res, next)
     var dsDonHang = [];
     var donhang;
     console.log('LICH SU MUA HANG');
-    db.query("select * from hoadon Leff join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?", [decoded.MaKhachHang], async function (errorHoaDon, resultHoaDon)
+    db.query("select * from hoadon INNER join phieuthutien  on hoadon.MaHoaDon=phieuthutien.MaHoaDon where hoadon.MaKhachHang = ?", [decoded.MaKhachHang], async function (errorHoaDon, resultHoaDon)
     {
         if (errorHoaDon)
         {
@@ -274,7 +274,7 @@ router.get('/lichsumuahang?', function (req, res, next)
             var dsSanPham = [];
             for (i = 0; i < resultHoaDon.length; i++)
             {
-                if(resultHoaDon[i].MaPhieuThu != null)
+                if(resultHoaDon[i].ThietBiDatHang != null)
                 {
 
                     dsSanPham = await getDanhSachSanPham(resultHoaDon[i].MaHoaDon);
@@ -595,7 +595,7 @@ router.post('/dathang?', async function (req, res, next)
 
                 }
 
-                res.send({'code': 'đặt hàng thành công'});
+                res.send({'code': ' đặt hàng thành công'});
 
             });
 
