@@ -45,7 +45,7 @@
       <file leaf-file-name="routeGioHang.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
+            <state relative-caret-position="893">
               <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
               <folding>
                 <element signature="e#1788#1843#0" expanded="false" />
@@ -57,8 +57,8 @@
       <file leaf-file-name="routeKhachHang.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="280" column="71" lean-forward="true" selection-start-line="280" selection-start-column="71" selection-end-line="280" selection-end-column="71" />
+            <state relative-caret-position="1188">
+              <caret line="671" column="33" lean-forward="false" selection-start-line="671" selection-start-column="33" selection-end-line="671" selection-end-column="33" />
               <folding>
                 <element signature="e#1146#1226#0" expanded="false" />
                 <element signature="n#!!block;n#Login#0" expanded="false" />
@@ -148,6 +148,7 @@
       <find>đặt</find>
       <find>dathang</find>
       <find>lich</find>
+      <find>phiếu thu</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,7 +187,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="991" />
@@ -209,6 +210,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -231,7 +233,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -303,12 +304,15 @@
       <workItem from="1515523075236" duration="1987000" />
       <workItem from="1515525173946" duration="3442000" />
       <workItem from="1515531861322" duration="435000" />
-      <workItem from="1515533919057" duration="2418000" />
+      <workItem from="1515533919057" duration="3278000" />
+      <workItem from="1515545398108" duration="1799000" />
+      <workItem from="1515713163829" duration="864000" />
+      <workItem from="1515690839816" duration="1998000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131509000" />
+    <option name="totallyTimeSpent" value="137030000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -320,15 +324,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="991" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="991" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1594509" sideWeight="0.49367088" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20571429" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -803,7 +808,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeGioHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
+        <state relative-caret-position="893">
           <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
           <folding>
             <element signature="e#1788#1843#0" expanded="false" />
@@ -813,8 +818,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Routes/routeKhachHang.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="280" column="71" lean-forward="true" selection-start-line="280" selection-start-column="71" selection-end-line="280" selection-end-column="71" />
+        <state relative-caret-position="1188">
+          <caret line="671" column="33" lean-forward="false" selection-start-line="671" selection-start-column="33" selection-end-line="671" selection-end-column="33" />
           <folding>
             <element signature="e#1146#1226#0" expanded="false" />
             <element signature="n#!!block;n#Login#0" expanded="false" />

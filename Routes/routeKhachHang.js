@@ -564,6 +564,7 @@ router.post('/dathang?', async function (req, res, next)
                         {
                             console.log('Lỗi tạo phiếu thu tiền: ', err6);
                         }
+                        else console.log('Tạo phiếu thu')
 
                     })
                     //Xóa giỏ hàng
